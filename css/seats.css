@@ -1,0 +1,712 @@
+/* ========================================================
+   seats.css — TicketNew Seat Selection
+   Pixel-faithful to the screenshot + polished details
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --red: #e31837;
+  --dark: #1a1a2e;
+  --green: #22c55e;
+  --green-dim: #16a34a;
+  --yellow: #f5a623;
+  --yellow-dim: #d48a00;
+  --gray: #d1d5db;
+  --gray-text: #9ca3af;
+  --border: #e5e7eb;
+  --bg: #ffffff;
+  --bg-layout: #f9fafb;
+  --text: #111827;
+  --bar-h: 76px;
+  --nav-h: 60px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-layout);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── NAVBAR ─────────────────────────────────────────── */
+.seats-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 24px;
+  height: var(--nav-h);
+  background: #fff;
+  box-shadow: 0 1px 0 var(--border), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.nav-back {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1rem;
+  transition: background .15s;
+  flex-shrink: 0;
+}
+
+.nav-back:hover {
+  background: #f3f4f6;
+}
+
+.nav-title {
+  font-size: .95rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.nav-sub {
+  font-size: .75rem;
+  color: var(--gray-text);
+  font-weight: 400;
+}
+
+/* ── TIME TABS ──────────────────────────────────────── */
+.time-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.time-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.month-chip {
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--gray-text);
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+
+.time-tab-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+
+.time-tab-btn:hover {
+  border-color: #9ca3af;
+}
+
+.time-tab-btn.active {
+  background: var(--dark);
+  color: #fff;
+  border-color: var(--dark);
+}
+
+/* ── MAIN LAYOUT WRAPPER ────────────────────────────── */
+.seat-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 16px calc(var(--bar-h) + 28px);
+  min-height: calc(100vh - var(--nav-h));
+}
+
+/* ── SEAT CANVAS ────────────────────────────────────── */
+.seat-canvas {
+  width: 100%;
+  max-width: 940px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
+}
+
+/* ── BOX TIER (BOX LEFT / BOX RIGHT) ────────────────── */
+.box-tier {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 60px 20px;
+  border-bottom: 1.5px solid var(--border);
+  background: #fafafa;
+}
+
+.box-tier-header {
+  display: flex;
+  gap: 0;
+  margin-bottom: 10px;
+}
+
+.box-tier-header>div:first-child {
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.box-tier-labels {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--gray-text);
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+/* Each box row: label + two sections side by side */
+.box-row-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.box-row-wrap .row-id {
+  width: 28px;
+  flex-shrink: 0;
+  font-size: .65rem;
+  font-weight: 700;
+  color: var(--gray-text);
+  text-align: center;
+  padding-top: 5px;
+}
+
+.box-sections {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.box-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.box-section.right {
+  align-items: flex-end;
+}
+
+.box-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.box-section.right .box-row {
+  justify-content: flex-end;
+}
+
+/* ── CATEGORY SECTION ───────────────────────────────── */
+.category-block {
+  border-top: 1px solid var(--border);
+}
+
+.category-block:first-child {
+  border-top: none;
+}
+
+.cat-label-row {
+  text-align: center;
+  padding: 12px 0 6px;
+  font-size: .78rem;
+  font-weight: 700;
+  color: #374151;
+  letter-spacing: .4px;
+  background: #fafafa;
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-body {
+  padding: 16px 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ── SEAT ROW ───────────────────────────────────────── */
+.seat-row {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  gap: 6px;
+}
+
+.row-id {
+  font-size: .65rem;
+  font-weight: 700;
+  color: var(--gray-text);
+  text-align: center;
+}
+
+.seats-wrap {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* spacer gap between seat groups (aisle) */
+.aisle {
+  width: 18px;
+  flex-shrink: 0;
+}
+
+/* ── INDIVIDUAL SEAT ────────────────────────────────── */
+.seat {
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .6rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+  user-select: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.seat:hover:not(.occupied) {
+  transform: scale(1.12);
+  z-index: 2;
+}
+
+.seat:active:not(.occupied) {
+  transform: scale(0.96);
+}
+
+/* available — green */
+.seat.available {
+  background: #dcfce7;
+  color: var(--green-dim);
+  border: 1.5px solid #86efac;
+}
+
+.seat.available:hover {
+  background: #bbf7d0;
+  border-color: var(--green);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, .3);
+}
+
+/* occupied — light gray */
+.seat.occupied {
+  background: var(--gray);
+  color: #fff;
+  border: 1.5px solid #d1d5db;
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+/* selected — yellow/amber */
+.seat.selected {
+  background: #fef3c7;
+  color: var(--yellow-dim);
+  border: 1.5px solid var(--yellow);
+  box-shadow: 0 2px 10px rgba(245, 166, 35, .35);
+  animation: seatPop .18s ease;
+}
+
+@keyframes seatPop {
+  0% {
+    transform: scale(1.22);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ── SCREEN ─────────────────────────────────────────── */
+.screen-wrap {
+  padding: 28px 0 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+}
+
+.screen-arc {
+  width: 54%;
+  height: 28px;
+  border: 3px solid #93c5fd;
+  border-radius: 0 0 50% 50% / 0 0 24px 24px;
+  background: linear-gradient(180deg, rgba(147, 197, 253, .22) 0%, transparent 100%);
+  box-shadow: 0 4px 18px rgba(147, 197, 253, .35);
+}
+
+.screen-text {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--gray-text);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ── LEGEND ─────────────────────────────────────────── */
+.legend-bar {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  padding: 18px 24px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .78rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.legend-sq {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.legend-sq.available {
+  background: #dcfce7;
+  border: 1.5px solid #86efac;
+}
+
+.legend-sq.occupied {
+  background: var(--gray);
+  border: 1.5px solid #d1d5db;
+  opacity: .6;
+}
+
+.legend-sq.selected {
+  background: #fef3c7;
+  border: 1.5px solid var(--yellow);
+}
+
+/* ── BOOKING BAR ─────────────────────────────────────── */
+.booking-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--bar-h);
+  background: #fff;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, .09);
+  z-index: 300;
+}
+
+.booking-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.booking-total {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.booking-seats {
+  font-size: .75rem;
+  color: var(--gray-text);
+  font-weight: 500;
+}
+
+.btn-proceed {
+  padding: 13px 42px;
+  border-radius: 10px;
+  background: #d1d5db;
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: not-allowed;
+  transition: background .2s, transform .1s, box-shadow .2s;
+  letter-spacing: .3px;
+}
+
+.btn-proceed.ready {
+  background: var(--dark);
+  cursor: pointer;
+}
+
+.btn-proceed.ready:hover {
+  background: var(--red);
+  box-shadow: 0 4px 18px rgba(227, 24, 55, .35);
+  transform: translateY(-1px);
+}
+
+.btn-proceed.ready:active {
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 600px) {
+  .seat {
+    width: 22px;
+    height: 22px;
+    font-size: .55rem;
+    border-radius: 4px;
+  }
+
+  .aisle {
+    width: 10px;
+  }
+
+  .cat-body {
+    padding: 10px 10px 12px;
+    gap: 4px;
+  }
+
+  .box-tier {
+    padding: 12px 10px 8px;
+  }
+
+  .booking-bar {
+    padding: 0 16px;
+  }
+
+  .btn-proceed {
+    padding: 11px 28px;
+    font-size: .85rem;
+  }
+}
+/* ═══════════════════════════════════════════════════════
+   SEAT COUNT MODAL  (How many seats?)
+   ═══════════════════════════════════════════════════════ */
+
+.scm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: scmFadeIn .18s ease;
+}
+
+.scm-overlay.hidden {
+  display: none;
+}
+
+@keyframes scmFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.scm-card {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  padding: 32px 28px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  animation: scmSlideUp .22s ease;
+  text-align: center;
+}
+
+@keyframes scmSlideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.scm-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 20px;
+}
+
+/* ── Vehicle area ── */
+.scm-vehicle {
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.vehicle-img {
+  position: absolute;
+  bottom: 0;
+  max-height: 110px;
+  max-width: 220px;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity .3s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}
+
+.vehicle-img.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Number pills ── */
+.scm-numbers {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.scm-num {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f4f6;
+  font-family: 'Poppins', sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: background .15s, color .15s, transform .12s;
+}
+
+.scm-num:hover {
+  background: #e5e7eb;
+}
+
+.scm-num.active {
+  background: var(--red, #e31837);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* ── Divider ── */
+.scm-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 0 -28px 18px;
+}
+
+/* ── Category availability ── */
+.scm-cats {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.scm-cat-item {
+  text-align: center;
+}
+
+.scm-cat-name {
+  font-size: .72rem;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: .04em;
+}
+
+.scm-cat-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 2px 0;
+}
+
+.scm-cat-avail {
+  font-size: .7rem;
+  font-weight: 600;
+  color: #22c55e;
+  letter-spacing: .04em;
+}
+
+/* ── Bestseller note ── */
+.scm-best {
+  font-size: .78rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.scm-best strong {
+  color: #374151;
+}
+
+.scm-best-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  background: #f5a623;
+  border: 1.5px solid #d48a00;
+  flex-shrink: 0;
+}
+
+/* ── CTA button ── */
+.scm-cta {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f4526a, #e31837);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: .03em;
+  transition: opacity .15s, transform .12s;
+}
+
+.scm-cta:hover {
+  opacity: .92;
+  transform: translateY(-1px);
+}
+
+.scm-cta:active {
+  transform: translateY(0);
+}

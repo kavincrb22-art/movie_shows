@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 44">
+  <rect x="0" y="0" width="90" height="44" rx="6" fill="#e31837"/>
+  <text x="8" y="32" font-family="Arial Black,sans-serif" font-weight="900" font-size="22" fill="#fff">TICKE</text>
+  <text x="93" y="32" font-family="Arial Black,sans-serif" font-weight="900" font-size="22" fill="#1a1a2e">NEW</text>
+  <circle cx="90" cy="22" r="6" fill="#f5a623"/>
+  <path d="M87 19 L93 22 L87 25 Z" fill="#fff"/>
+</svg>

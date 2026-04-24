@@ -1,0 +1,1677 @@
+/* ============================================================
+   TicketNew — Responsive Stylesheet
+   Mobile-first: iPhone → Tablet → Desktop
+   Breakpoints:
+     xs  : 0–374px    (iPhone SE, mini)
+     sm  : 375–480px  (iPhone 14/15, standard)
+     md  : 481–767px  (large phones / phablets)
+     lg  : 768–1023px (iPad / tablets portrait)
+     xl  : 1024–1279px (iPad landscape / small laptop)
+     2xl : 1280px+    (desktop / large)
+   ============================================================ */
+
+/* ── SAFE AREA (notch / Dynamic Island / home indicator) ── */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* Responsive spacing scale */
+  --space-page-x: 16px;
+  --space-section: 24px 16px;
+  --nav-h: 56px;
+  --bar-h: 72px;
+}
+
+/* ============================================================
+   BASE / RESET IMPROVEMENTS FOR MOBILE
+   ============================================================ */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Better touch targets — minimum 44×44px */
+button,
+a,
+[role="button"],
+.city-chip,
+.filter-btn,
+.chip,
+.nav-links a {
+  min-height: 44px;
+  /* display: inline-flex; */
+  align-items: center;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+
+/* ── Mobile (≤ 767px) ── */
+@media (max-width: 767px) {
+  .navbar {
+    padding: 0 var(--space-page-x);
+    padding-left: calc(var(--space-page-x) + var(--safe-left));
+    padding-right: calc(var(--space-page-x) + var(--safe-right));
+    height: var(--nav-h);
+    position: sticky;
+    top: 0;
+    gap: 8px;
+  }
+
+  .nav-links {
+    display: none;
+    /* Hidden on mobile — use hamburger */
+  }
+
+  /* Compact search on mobile */
+  .search-bar {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+    padding: 7px 12px;
+    border-radius: 20px;
+  }
+
+  .search-bar input {
+    font-size: 0.82rem;
+  }
+
+  /* City button — icon only on smallest screens */
+  .city-btn .city-label {
+    display: none;
+  }
+
+  /* User avatar stays */
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+  }
+
+  /* Hamburger menu button (add via JS if needed) */
+  .nav-hamburger {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+
+  /* Mobile nav drawer overlay */
+  .nav-drawer {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    display: none;
+  }
+
+  .nav-drawer.open {
+    display: block;
+  }
+
+  .nav-drawer-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(280px, 85vw);
+    height: 100%;
+    background: #fff;
+    padding: 20px 0;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-drawer-panel a {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .nav-drawer-panel a.active,
+  .nav-drawer-panel a:hover {
+    color: var(--text);
+    font-weight: 600;
+    border-left-color: var(--red);
+    background: #fafafa;
+  }
+}
+
+/* ── iPhone SE / very small (≤ 374px) ── */
+@media (max-width: 374px) {
+  .navbar {
+    padding: 0 12px;
+    height: 52px;
+  }
+
+  .nav-logo img {
+    height: 28px;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+  }
+
+  .search-bar {
+    padding: 6px 10px;
+  }
+}
+
+/* ── Tablet (768–1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .navbar {
+    padding: 0 24px;
+    height: 60px;
+    gap: 12px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+  }
+
+  .search-bar {
+    width: 220px;
+    padding: 8px 14px;
+  }
+}
+
+/* ── Desktop (≥ 1024px) ── */
+@media (min-width: 1024px) {
+  :root {
+    --space-page-x: 60px;
+    --space-section: 44px 60px;
+    --nav-h: 64px;
+  }
+
+  .nav-hamburger {
+    display: none;
+  }
+}
+
+/* ── Large Desktop (≥ 1280px) ── */
+@media (min-width: 1280px) {
+  :root {
+    --space-page-x: 80px;
+  }
+
+  .search-bar {
+    width: 340px;
+  }
+}
+
+
+/* ============================================================
+   HERO BANNER
+   ============================================================ */
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .hero {
+    flex-direction: column;
+    padding: 24px 16px 28px;
+    gap: 20px;
+    min-height: unset;
+    align-items: flex-start;
+  }
+
+  .hero-poster-placeholder {
+    width: 110px;
+    height: 158px;
+    border-radius: 12px;
+    font-size: 3rem;
+    align-self: center;
+  }
+
+  .hero-title {
+    font-size: 1.55rem;
+  }
+
+  .hero-desc {
+    font-size: 0.82rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-badge {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+  }
+
+  .hero-meta {
+    font-size: 0.78rem;
+  }
+
+  .btn-book {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 0.88rem;
+  }
+}
+
+/* ── iPhone SE ── */
+@media (max-width: 374px) {
+  .hero {
+    padding: 20px 12px 24px;
+  }
+
+  .hero-title {
+    font-size: 1.35rem;
+  }
+
+  .hero-poster-placeholder {
+    width: 90px;
+    height: 128px;
+  }
+}
+
+/* ── Phablet (481–767px) ── */
+@media (min-width: 481px) and (max-width: 767px) {
+  .hero {
+    flex-direction: row;
+    padding: 32px 20px;
+    gap: 24px;
+    min-height: 240px;
+  }
+
+  .hero-poster-placeholder {
+    width: 130px;
+    height: 185px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* ── Tablet ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero {
+    padding: 48px 24px;
+    gap: 40px;
+    min-height: 260px;
+  }
+
+  .hero-poster-placeholder {
+    width: 160px;
+    height: 225px;
+  }
+
+  .hero-title {
+    font-size: 1.9rem;
+  }
+
+  .hero-desc {
+    font-size: 0.88rem;
+  }
+}
+
+
+/* ============================================================
+   SECTIONS (movies, upcoming, etc.)
+   ============================================================ */
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .section {
+    padding: 20px 16px;
+  }
+
+  .section-header {
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+
+  .view-all {
+    font-size: 0.8rem;
+  }
+
+  .filters {
+    gap: 8px;
+    margin-bottom: 18px;
+    /* Horizontal scroll for filters */
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    font-size: 0.76rem;
+    min-height: 36px;
+    border-radius: 20px;
+  }
+}
+
+/* ── Tablet ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .section {
+    padding: 28px 24px;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 1024px) {
+  .section {
+    padding: 44px 60px;
+  }
+}
+
+
+/* ============================================================
+   MOVIE GRID
+   ============================================================ */
+
+/* ── Mobile (≤ 374px) — 2 columns ── */
+@media (max-width: 374px) {
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .movie-info h3 {
+    font-size: 0.78rem;
+  }
+
+  .movie-info p {
+    font-size: 0.68rem;
+  }
+
+  .movie-info {
+    padding: 9px 10px;
+  }
+}
+
+/* ── iPhone (375–480px) — 2 columns ── */
+@media (min-width: 375px) and (max-width: 480px) {
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .movie-info {
+    padding: 10px 11px;
+  }
+
+  .movie-info h3 {
+    font-size: 0.82rem;
+  }
+}
+
+/* ── Phablet (481–767px) — 3 columns ── */
+@media (min-width: 481px) and (max-width: 767px) {
+  .movies-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+/* ── Tablet portrait (768–1023px) — 4 columns ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .movies-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+}
+
+/* ── Desktop (≥ 1024px) — auto-fill 190px ── */
+@media (min-width: 1024px) {
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 24px;
+  }
+}
+
+/* ── Large Desktop ── */
+@media (min-width: 1440px) {
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  }
+}
+
+/* Card hover — disable on touch to avoid sticky hover */
+@media (hover: none) {
+  .movie-card:hover {
+    transform: none;
+  }
+
+  .movie-card:hover .movie-poster {
+    transform: none;
+  }
+
+  .upcoming-card:hover {
+    transform: none;
+  }
+}
+
+/* ── Badge ── */
+@media (max-width: 480px) {
+  .badge-new {
+    font-size: 0.55rem;
+    padding: 2px 7px;
+  }
+}
+
+
+/* ============================================================
+   UPCOMING SCROLL
+   ============================================================ */
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .upcoming-scroll {
+    gap: 14px;
+    /* Show partial next card to hint at scroll */
+    padding-right: 16px;
+  }
+
+  .upcoming-card {
+    flex: 0 0 150px;
+  }
+
+  .upcoming-thumb {
+    width: 150px;
+    height: 205px;
+  }
+
+  .upcoming-card h3 {
+    font-size: 0.8rem;
+  }
+
+  .upcoming-card p {
+    font-size: 0.7rem;
+  }
+
+  .release-badge strong {
+    font-size: 0.82rem;
+  }
+}
+
+/* ── iPhone SE ── */
+@media (max-width: 374px) {
+  .upcoming-card {
+    flex: 0 0 130px;
+  }
+
+  .upcoming-thumb {
+    width: 130px;
+    height: 180px;
+  }
+}
+
+/* ── Tablet ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .upcoming-card {
+    flex: 0 0 175px;
+  }
+
+  .upcoming-thumb {
+    width: 175px;
+    height: 240px;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 1024px) {
+  .upcoming-card {
+    flex: 0 0 200px;
+  }
+
+  .upcoming-thumb {
+    width: 200px;
+    height: 270px;
+  }
+}
+
+
+/* ============================================================
+   EXPLORE / CHIP ROW
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .explore-section {
+    padding: 20px 16px;
+  }
+
+  .chip-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    gap: 8px;
+  }
+
+  .chip-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip {
+    flex-shrink: 0;
+    font-size: 0.76rem;
+    padding: 6px 16px;
+    min-height: 36px;
+  }
+
+  .explore-title {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .explore-section {
+    padding: 28px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .explore-section {
+    padding: 36px 60px;
+  }
+}
+
+
+/* ============================================================
+   CITY MODAL
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .city-modal {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 16px;
+    max-height: 88vh;
+  }
+
+  /* When inside overlay — slide from bottom */
+  .modal-overlay:has(.city-modal) {
+    align-items: flex-end;
+  }
+
+  .all-cities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .popular-cities {
+    gap: 8px;
+  }
+
+  .city-chip {
+    padding: 6px 16px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .city-modal {
+    width: 560px;
+  }
+
+  .all-cities-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .all-cities-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 16px calc(20px + var(--safe-bottom));
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+  }
+
+  .footer-app {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer-support {
+    gap: 20px;
+  }
+
+  .support-item {
+    font-size: 0.72rem;
+  }
+
+  .support-icon {
+    font-size: 1.3rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.78rem;
+  }
+
+  .footer-col a {
+    font-size: 0.74rem;
+    margin-bottom: 5px;
+  }
+
+  /* Theatre links — single column on mobile */
+  .footer-col .theatre-links {
+    columns: 1;
+  }
+
+  .footer-bottom {
+    font-size: 0.7rem;
+    padding-top: 16px;
+  }
+
+  .store-badge {
+    font-size: 0.72rem;
+    padding: 7px 14px;
+  }
+}
+
+/* ── Phablet / small tablet (481–767px) ── */
+@media (min-width: 481px) and (max-width: 767px) {
+  .footer {
+    padding: 24px 20px calc(24px + var(--safe-bottom));
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ── Tablet (768–1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer {
+    padding: 32px 24px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 1024px) {
+  .footer {
+    padding: 48px 60px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+
+/* ============================================================
+   BREADCRUMB
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .breadcrumb {
+    padding: 10px 16px;
+    font-size: 0.76rem;
+    /* Allow wrapping on small screens */
+    white-space: normal;
+    line-height: 1.6;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .breadcrumb {
+    padding: 12px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .breadcrumb {
+    padding: 12px 60px;
+  }
+}
+
+
+/* ============================================================
+   INFO SECTION
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .info-section {
+    padding: 24px 16px;
+  }
+
+  .info-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .info-section h3 {
+    font-size: 0.95rem;
+    margin: 20px 0 8px;
+  }
+
+  .info-section p {
+    font-size: 0.8rem;
+  }
+
+  .accordion-header {
+    font-size: 0.88rem;
+    padding: 14px 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .info-section {
+    padding: 32px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .info-section {
+    padding: 40px 60px;
+  }
+}
+
+
+/* ============================================================
+   BOOKING PAGE (.page grid)
+   ============================================================ */
+
+/* ── Mobile ── */
+@media (max-width: 680px) {
+  .page {
+    grid-template-columns: 1fr;
+    padding: 0 0 calc(var(--bar-h) + var(--safe-bottom));
+    margin: 0;
+    gap: 0;
+  }
+
+  .booking-detail,
+  .payment-summary {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: 8px solid #f4f4f4;
+    padding: 1rem 16px;
+  }
+
+  .movie-title {
+    font-size: 14px;
+  }
+
+  .ticket-name {
+    font-size: 13px;
+  }
+
+  .ticket-price {
+    font-size: 14px;
+  }
+
+  .summary-title {
+    font-size: 14px;
+  }
+
+  /* Show booking summary above payment on mobile */
+  .payment-summary {
+    order: -1;
+    border-bottom: 8px solid #f4f4f4;
+  }
+}
+
+/* ── Phablet (481–767px) ── */
+@media (min-width: 481px) and (max-width: 767px) {
+  .page {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    max-width: 520px;
+    padding: 1rem 16px calc(var(--bar-h) + 12px);
+    gap: 1rem;
+  }
+}
+
+/* ── Tablet (768–1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .page {
+    grid-template-columns: 1fr 320px;
+    max-width: 800px;
+    margin: 1.5rem auto;
+    padding: 0 20px;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr 380px;
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+}
+
+
+/* ============================================================
+   CHECKOUT MODAL
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .checkout-modal {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+    padding-bottom: var(--safe-bottom);
+  }
+
+  .bank-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .checkout-modal {
+    border-radius: 16px;
+    max-width: 480px;
+    max-height: 80vh;
+  }
+
+  .modal-overlay:has(.checkout-modal) {
+    align-items: center;
+  }
+}
+
+
+/* ============================================================
+   SEAT SELECTION PAGE (seats.css supplement)
+   ============================================================ */
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  :root {
+    --bar-h: 64px;
+    --nav-h: 56px;
+  }
+
+  .seats-nav {
+    padding: 0 14px;
+    height: var(--nav-h);
+    gap: 10px;
+  }
+
+  .nav-title {
+    font-size: 0.85rem;
+  }
+
+  .nav-sub {
+    font-size: 0.68rem;
+  }
+
+  .nav-back {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .time-tabs {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .time-tab-btn {
+    padding: 7px 14px;
+    font-size: 0.75rem;
+  }
+
+  .seat-page {
+    padding: 16px 8px calc(var(--bar-h) + 16px);
+  }
+
+  /* Smaller seats on mobile */
+  .seat {
+    width: 21px;
+    height: 21px;
+    font-size: 0.52rem;
+    border-radius: 4px;
+  }
+
+  .aisle {
+    width: 10px;
+  }
+
+  .cat-body {
+    padding: 8px 8px 10px;
+    gap: 4px;
+  }
+
+  .cat-label-row {
+    font-size: 0.72rem;
+    padding: 10px 0 5px;
+  }
+
+  .box-tier {
+    padding: 10px 8px 8px;
+  }
+
+  .row-id {
+    font-size: 0.58rem;
+    width: 22px;
+  }
+
+  /* Legend — compact horizontal */
+  .legend-bar {
+    flex-wrap: nowrap;
+    gap: 14px;
+    padding: 12px 14px;
+    overflow-x: auto;
+  }
+
+  .legend-item {
+    font-size: 0.7rem;
+    gap: 5px;
+  }
+
+  .legend-sq {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Booking bar */
+  .booking-bar {
+    padding: 0 16px;
+    height: var(--bar-h);
+  }
+
+  .booking-total {
+    font-size: 1rem;
+  }
+
+  .booking-seats {
+    font-size: 0.68rem;
+  }
+
+  .btn-proceed {
+    padding: 10px 24px;
+    font-size: 0.82rem;
+    border-radius: 8px;
+  }
+
+  /* Screen */
+  .screen-wrap {
+    padding: 20px 0 16px;
+  }
+
+  .screen-arc {
+    width: 70%;
+    height: 22px;
+  }
+
+  .screen-text {
+    font-size: 0.65rem;
+    letter-spacing: 1.2px;
+  }
+}
+
+/* ── iPhone SE (≤ 374px) ── */
+@media (max-width: 374px) {
+  .seat {
+    width: 18px;
+    height: 18px;
+    font-size: 0.48rem;
+  }
+
+  .aisle {
+    width: 8px;
+  }
+
+  .seats-wrap {
+    gap: 3px;
+  }
+
+  .box-row {
+    gap: 3px;
+  }
+
+  .cat-body {
+    padding: 6px 6px 8px;
+    gap: 3px;
+  }
+
+  .booking-bar {
+    padding: 0 12px;
+  }
+
+  .btn-proceed {
+    padding: 9px 18px;
+    font-size: 0.78rem;
+  }
+}
+
+/* ── Tablet (768–1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --bar-h: 72px;
+  }
+
+  .seat {
+    width: 26px;
+    height: 26px;
+  }
+
+  .seat-canvas {
+    max-width: 680px;
+  }
+
+  .seats-nav {
+    padding: 0 20px;
+  }
+
+  .time-tabs {
+    padding: 12px 20px;
+  }
+
+  .booking-bar {
+    padding: 0 24px;
+  }
+
+  .btn-proceed {
+    padding: 12px 36px;
+  }
+}
+
+/* ── Desktop (≥ 1024px) ── */
+@media (min-width: 1024px) {
+  :root {
+    --bar-h: 76px;
+    --nav-h: 60px;
+  }
+
+  .seat-canvas {
+    max-width: 940px;
+  }
+
+  .seats-nav {
+    padding: 0 24px;
+  }
+}
+
+
+/* ============================================================
+   ADMIN PANEL (admin.css supplement)
+   ============================================================ */
+
+/* ── Mobile sidebar — collapsed by default ── */
+@media (max-width: 767px) {
+  body.admin-body {
+    display: block;
+  }
+
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 300;
+    padding-bottom: var(--safe-bottom);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Overlay when sidebar open */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 290;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  /* Hamburger in admin topbar */
+  .topbar {
+    padding: 0 16px;
+    height: 56px;
+  }
+
+  .topbar-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text);
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+
+  .topbar-hamburger:hover {
+    background: #f5f5f5;
+  }
+
+  /* Stats grid */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+  }
+
+  .page-body {
+    padding: 16px;
+  }
+
+  .page-header {
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 1.1rem;
+  }
+
+  /* Table — horizontal scroll */
+  .card {
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .card-body {
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 560px;
+  }
+
+  .card-header {
+    padding: 14px 16px;
+  }
+
+  .card-header h2 {
+    font-size: 0.9rem;
+  }
+
+  /* Form grid — single column */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Modal — full screen on mobile */
+  .modal-box {
+    width: 100%;
+    max-width: 100%;
+    max-height: 96vh;
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+  }
+
+  .modal-overlay {
+    align-items: flex-end !important;
+  }
+
+  /* Table toolbar */
+  .table-toolbar {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .search-input-wrap {
+    max-width: 100%;
+  }
+
+  /* Poster upload */
+  .poster-upload-wrap {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .poster-preview-box {
+    width: 90px;
+    height: 126px;
+  }
+
+  .toggle-group {
+    gap: 8px;
+  }
+
+  .toggle-pill {
+    padding: 7px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+/* ── iPhone SE admin ── */
+@media (max-width: 374px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+  }
+
+  .page-body {
+    padding: 12px;
+  }
+}
+
+/* ── Tablet admin (768–1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar-link {
+    padding: 9px 16px;
+    font-size: 0.8rem;
+  }
+
+  .main-content {
+    margin-left: 200px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .page-body {
+    padding: 20px;
+  }
+
+  .topbar {
+    padding: 0 20px;
+  }
+}
+
+/* ── Desktop admin (≥ 1024px) ── */
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 240px;
+  }
+
+  .main-content {
+    margin-left: 240px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .page-body {
+    padding: 28px;
+  }
+
+  .topbar {
+    padding: 0 28px;
+  }
+
+  .topbar-hamburger {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   MODAL — AUTH / LOGIN
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+  /* Auth modal — full screen bottom sheet */
+  .modal-overlay:has(.modal):not(:has(.city-modal)):not(:has(.checkout-modal)) {
+    align-items: flex-end;
+  }
+
+  /* Generic modal box */
+  .modal {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 16px calc(24px + var(--safe-bottom));
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal h2 {
+    font-size: 1.15rem;
+  }
+
+  .modal p {
+    font-size: 0.8rem;
+  }
+
+  .input-group {
+    margin-bottom: 14px;
+  }
+
+  .input-group .prefix {
+    padding: 12px 12px;
+    font-size: 0.8rem;
+  }
+
+  .input-group input {
+    padding: 12px 12px;
+    font-size: 0.85rem;
+  }
+
+  .btn-primary {
+    padding: 13px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 481px) {
+  .modal {
+    width: min(440px, 95vw);
+    border-radius: 16px;
+    padding: 32px 28px;
+  }
+}
+
+
+/* ============================================================
+   CONFIRMATION PAGE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+  /* Confirmation page cards stack vertically */
+  .confirmation-wrap,
+  .confirm-layout {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
+
+/* ============================================================
+   THEATRES / MOVIES LIST PAGES
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+  /* Theatre card — horizontal layout on mobile */
+  .theatre-card {
+    flex-direction: column;
+    padding: 14px 16px;
+  }
+
+  /* Shows list — wrap on mobile */
+  .show-times {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .show-time-btn {
+    padding: 7px 14px;
+    font-size: 0.78rem;
+    min-height: 40px;
+  }
+}
+
+
+/* ============================================================
+   PROFILE / ORDERS PAGE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+  .profile-layout,
+  .orders-layout {
+    padding: 16px;
+    flex-direction: column;
+  }
+
+  .order-card {
+    padding: 14px 16px;
+  }
+}
+
+
+/* ============================================================
+   UTILITY — HIDE / SHOW PER BREAKPOINT
+   ============================================================ */
+
+.hide-mobile {}
+
+.hide-tablet {}
+
+.hide-desktop {}
+
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hide-tablet {
+    display: none !important;
+  }
+
+  .show-tablet {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hide-desktop {
+    display: none !important;
+  }
+
+  .show-desktop {
+    display: flex !important;
+  }
+
+  .show-mobile {
+    display: none !important;
+  }
+
+  .show-tablet {
+    display: none !important;
+  }
+}
+
+
+/* ============================================================
+   SCROLL IMPROVEMENTS
+   ============================================================ */
+
+/* Momentum scrolling on iOS */
+.upcoming-scroll,
+.filters,
+.chip-row,
+.time-tabs,
+.city-modal,
+.checkout-modal,
+.modal-box,
+.card-body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent overscroll bounce on modal/sheet */
+.checkout-modal,
+.city-modal,
+.modal-box {
+  overscroll-behavior: contain;
+}
+
+
+/* ============================================================
+   STICKY BOTTOM BAR — safe area padding for notch devices
+   ============================================================ */
+
+.booking-bar,
+.pay-footer,
+.bottom-bar {
+  padding-bottom: calc(12px + var(--safe-bottom));
+  height: calc(var(--bar-h) + var(--safe-bottom));
+}
+
+/* Adjust seat-page bottom padding to match */
+.seat-page {
+  padding-bottom: calc(var(--bar-h) + var(--safe-bottom) + 28px);
+}
+
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+
+@media print {
+
+  .navbar,
+  .booking-bar,
+  .pay-footer,
+  .sidebar,
+  .topbar,
+  .filters,
+  .upcoming-scroll,
+  .footer,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .page {
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .booking-detail,
+  .payment-summary {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
